@@ -85,9 +85,9 @@ services:
       - "8000:8000"
       - "8443:8443"
       - "8444:8444"
-    volumes:
-      - ./kong_vol/stdout:/dev/stdout
-      - ./kong_vol/stderr:/dev/stderr
+    #volumes:
+    #  - ./kong_vol/stdout:/dev/stdout
+    #  - ./kong_vol/stderr:/dev/stderr
 
   #######################################
   # Konga database prepare
