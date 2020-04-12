@@ -56,7 +56,7 @@ services:
   kong:
     image: kong:latest
     container_name: kong
-    restart: always
+    #restart: always
     networks:
       - kong-net
     environment:
