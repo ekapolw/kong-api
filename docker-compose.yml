@@ -10,8 +10,8 @@ services:
   # Postgres: The database used by Kong
   #######################################
   kong-database:
-    name: kong-database
     image: postgres:9.6
+    container_name: kong-database
     restart: always
     networks:
       - kong-net
@@ -34,8 +34,8 @@ services:
   # Kong database migration
   #######################################
   kong-migration:
-    name: kong-migration
     image: kong:latest
+    container_name: kong-migration
     command: "kong migrations bootstrap"
     networks:
       - kong-net
@@ -54,8 +54,8 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
-    name: kong
     image: kong:latest
+    container_name: kong
     restart: always
     networks:
       - kong-net
@@ -93,8 +93,8 @@ services:
   # Konga database prepare
   #######################################
   konga-prepare:
-    name: konga-prepare
     image: pantsel/konga:next
+    container_name: konga-prepare
     command: "-c prepare -a postgres -u postgresql://kong@kong-database:5432/konga_db"
     networks:
       - kong-net
@@ -108,8 +108,8 @@ services:
   # Konga: Kong GUI
   #######################################
   konga:
-    name: konga
     image: pantsel/konga:next
+    container_name: konga
     restart: always
     networks:
         - kong-net
