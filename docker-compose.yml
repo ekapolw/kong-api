@@ -85,24 +85,24 @@ services:
       - "8000:8000"
       - "8443:8443"
       - "8444:8444"
-    #volumes:
-    #  - ./kong_vol/stdout:/dev/stdout
-    #  - ./kong_vol/stderr:/dev/stderr
+    volumes:
+      - ./kong_vol/stdout:/dev/stdout
+      - ./kong_vol/stderr:/dev/stderr
 
   #######################################
   # Konga database prepare
   #######################################
-  #konga-prepare:
-  #  image: pantsel/konga:next
-  #  container_name: konga-prepare
-  #  command: "-c prepare -a postgres -u postgresql://kong@kong-database:5432/konga_db"
-  #  networks:
-  #    - kong-net
-  #  restart: on-failure
-  #  links:
-  #    - kong-database
-  #  depends_on:
-  #    - kong-database
+  konga-prepare:
+    image: pantsel/konga:next
+    container_name: konga-prepare
+    command: "-c prepare -a postgres -u postgresql://kong:kong@kong-database:5432/konga_db"
+    networks:
+      - kong-net
+    restart: on-failure
+    links:
+      - kong-database
+    depends_on:
+      - kong-database
 
   #######################################
   # Konga: Kong GUI
@@ -113,13 +113,15 @@ services:
     restart: always
     networks:
         - kong-net
-    #environment:
-    #  DB_ADAPTER: postgres
-    #  DB_HOST: kong-database
-    #  DB_USER: kong
-    #  TOKEN_SECRET: km1GUr4RkcQD7DewhJPNXrCuZwcKmqjb
-    #  DB_DATABASE: konga_db
-    #  NODE_ENV: production
+    environment:
+      DB_ADAPTER: postgres
+      DB_HOST: kong-database
+      DB_PORT: 5432
+      DB_USER: kong
+      DB_PASSWORD: kong
+      DB_DATABASE: konga_db
+      TOKEN_SECRET: km1GUr4RkcQD7DewhJPNXrCuZwcKmqjb
+      NODE_ENV: production
     depends_on:
       - kong
       - kong-migration
