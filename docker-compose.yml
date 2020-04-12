@@ -54,6 +54,7 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
+    name: kong
     image: kong:latest
     restart: always
     networks:
@@ -92,6 +93,7 @@ services:
   # Konga database prepare
   #######################################
   konga-prepare:
+    name: konga-prepare
     image: pantsel/konga:next
     command: "-c prepare -a postgres -u postgresql://kong@kong-database:5432/konga_db"
     networks:
@@ -106,6 +108,7 @@ services:
   # Konga: Kong GUI
   #######################################
   konga:
+    name: konga
     image: pantsel/konga:next
     restart: always
     networks:
