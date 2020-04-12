@@ -64,7 +64,6 @@ services:
       KONG_PG_HOST: kong-database
       KONG_PG_PASSWORD: kong
       KONG_CASSANDRA_CONTACT_POINTS: kong-database
-      KONG_NGINX_PROXY_SET: "$$session_secret secret"
       KONG_PROXY_ACCESS_LOG: /dev/stdout
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG=: /dev/stderr
@@ -86,9 +85,9 @@ services:
       - "8000:8000"
       - "8443:8443"
       - "8444:8444"
-    volumes:
-      - ./kong_vol/stdout:/dev/stdout
-      - ./kong_vol/stderr:/dev/stderr
+    #volumes:
+    #  - ./kong_vol/stdout:/dev/stdout
+    #  - ./kong_vol/stderr:/dev/stderr
 
   #######################################
   # Konga database prepare
